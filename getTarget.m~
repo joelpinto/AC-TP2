@@ -16,7 +16,7 @@ function T = getTarget(Trg)
         else              % every interictical point
             T(i, 1) = 1;
         end
-        i = i+ 1;
+        i
     end
     return
 end

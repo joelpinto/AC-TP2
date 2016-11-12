@@ -1,16 +1,17 @@
-i = 2;
+i = 1;
 load 44202;
+inicio = 9000;
+fim = 12000;
 T = getTarget(Trg);
 T = transpose(T);
-T = T(1:4, 1:700);
-SubFeat = FeatVectSel(1:700, 1:29);
+T = T(1:4, inicio:fim);
+SubFeat = FeatVectSel(inicio:fim, 1:29);
 SubFeat = transpose(SubFeat);
-Test = FeatVectSel(701:1000, 1:29);
+Test = FeatVectSel(fim + 1:(fim - inicio) * 2, 1:29);
 Test = transpose(Test);
-disp('ola')
 
 if i == 1
-    net = newlrn(SubFeat, T, 10);
+    net = newlrn(SubFeat, T, 25);
     net.divideParam.trainRatio=1;
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
@@ -27,6 +28,5 @@ if i == 2
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
     net = train(net,SubFeat,T);
-
     outSim = sim(net,Test);
 end

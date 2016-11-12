@@ -1,2 +1,2 @@
 # AC-TP2
-Machine Learning - Epilepsy Detection
+Machine Learning - Epilepsy Detection And Prediction

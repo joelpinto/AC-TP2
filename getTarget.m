@@ -1,10 +1,12 @@
-function T = getTarget(Trg)
+function [T,BreakingPoints] = getTarget(Trg)
     Trglength = size(Trg);
     T = zeros(Trglength(1,1,1), 4, 'uint32');
     i = 1;
+    BreakingPoints = [];
     while i < Trglength(1,1,1)
         if i > 2 && Trg(i, 1) == 1 && Trg(i - 1, 1) == 0%init ictical found
             T(i - 1 - 600 : i - 1, 2) = 1;
+            BreakingPoints = [BreakingPoints, i];
             T(i - 1 - 600 : i - 1, 1) = 0; % preictical points
         end
         if i > 2 && Trg(i, 1) == 0 && Trg(i - 1, 1) == 1%final ictical found

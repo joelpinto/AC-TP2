@@ -1,29 +1,15 @@
 function T = getTarget(Trg)
     Trglength = size(Trg);
     T = zeros(Trglength(1,1,1), 4, 'uint32');
-<<<<<<< HEAD
-    for i = 1 : Trglength(1,1,1)
-        if i > 2 && Trg(i, 1) == 1 && Trg(i - 1, 1) == 0%init ictical found
-            T(i - 1 - 600 : i - 1, 2) = 1; % preictical points
-            T(i - 1 - 600 : i - 1, 1) = 0;
-        end
-        if i > 2 && Trg(i, 1) == 0 && Trg(i - 1, 1) == 1 && i > 2%final ictical found
-            T(i : i + 300, 4) = 1; % posictical points
-            i = i + 300;
-        end
-        if Trg(i, 1) == 1 && T(i,1) + T(i,2) + T(i,3) + T(i,4) == 0 % every ictical point
-            T(i, 3) = 1;
-        elseif Trg(i, 1) == 0 && T(i,1) + T(i,2) + Trg(i,3) + Trg(i,4) == 0 % every interictical point
-            T(i, 1) = 1;
-        end
-=======
     i = 1;
+    BreakingPoints [ ]
     while i < Trglength(1,1,1)
         if i > 2 && Trg(i, 1) == 1 && Trg(i - 1, 1) == 0%init ictical found
             T(i - 1 - 600 : i - 1, 2) = 1;
+            BreakingPoints.append(i);
             T(i - 1 - 600 : i - 1, 1) = 0; % preictical points
         end
-        if i > 2 && Trg(i, 1) == 0 && Trg(i - 1, 1) == 1 && i > 2%final ictical found
+        if i > 2 && Trg(i, 1) == 0 && Trg(i - 1, 1) == 1%final ictical found
             T(i : i + 300, 4) = 1; % postictical points
             i = i + 300;
         end
@@ -32,8 +18,8 @@ function T = getTarget(Trg)
         else              % every interictical point
             T(i, 1) = 1;
         end
-        i
->>>>>>> 589b1714c54c9d575f407b3442ffd3aa7a39c906
+        i = i+ 1;
     end
+     BreakingPoints
     return
 end

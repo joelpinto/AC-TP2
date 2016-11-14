@@ -1,16 +1,12 @@
-%function [ output_args ] = Interface( input_args )
-%INTERFACE Summary of this function goes here
-%   Detailed explanation goes here
-x = 'TRAIN AND TEST'
 
-load('44202.mat');
+
+dataset = '44202.mat'
+load(dataset);
 
 [TTTarget,BreakingPoints] = getTarget(Trg);
 TTTarget = transpose(TTTarget);
 
 BreakingPoints = BreakingPoints';
-
-
 
 FinalTarget =[];
 FinalIsolated =[];
@@ -23,13 +19,8 @@ for iterator = 1:size(BreakingPoints)
     FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
 end
 
-
-net = feedforwardnet(11);
+net = feedforwardnet(29);
 net.trainFcn = 'trainlm';
 net = train(net,FinalIsolated,FinalTarget,'useparallel','yes','useGPU','yes');
-view(net)
 
-
-
-%end
-
+save 'stats'

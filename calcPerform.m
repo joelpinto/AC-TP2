@@ -7,14 +7,14 @@ function [sensi, speci] = calcPerform(outSim, Target)
     FP = 0; % false positives
     
     while i < Trglength(1,2,1)
-        if outSim(3,i) > (outSim(1,i) + outSim(2, i) + outSim(4, i)) && Target(3,i) == 1
+        if outSim(3,i) > outSim(1,i) && outSim(3,i) > outSim(2, i) && outSim(3,i) > outSim(4, i) && Target(3,i) == 1
             TP = TP + 1;
-        elseif outSim(3,i) < (outSim(1,i) + outSim(2, i) + outSim(4, i)) && Target(3,i) ~= 1
+        elseif outSim(3,i) < outSim(1,i) && outSim(3,i) < outSim(2, i) &&outSim(3,i) < outSim(4, i) && Target(3,i) ~= 1
             TN = TN + 1;
         end
-        if outSim(3,i) > (outSim(1,i) + outSim(2, i) + outSim(4, i)) && Target(3,i) ~= 1
+        if outSim(3,i) > outSim(1,i) && outSim(3,i) > outSim(2, i) && outSim(3,i) > outSim(4, i) && Target(3,i) ~= 1
             FP = FP + 1;
-        elseif outSim(3,i) < (outSim(1,i) + outSim(2, i) + outSim(4, i)) && Target(3,i) == 1
+        elseif outSim(3,i) < outSim(1,i) && outSim(3,i) < outSim(2, i) && outSim(3,i) < outSim(4, i) && Target(3,i) ==1
             FN = FN + 1;
         end
         i = i + 1;

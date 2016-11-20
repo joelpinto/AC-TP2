@@ -46,11 +46,11 @@ if(strcmp(neuralNetwork,'feedfo'))
     net.layers{2}.transferFcn=activation;
     net = train(net,FinalIsolatedTrain,FinalTargetTrain,'useparallel','yes','useGPU','yes');
 else
-    net = layrecnet();
+    net = layrecnet(1:2,hiddenValue);
     net.divideParam.trainRatio=1;
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
-    net.trainFcn = 'trainlm';
+    net.trainFcn = trainFunction;
     net = train(net,FinalIsolatedTrain,FinalTargetTrain);
 end
 
@@ -64,5 +64,5 @@ name = char(name);
 save(name,'net');
 
 outSim = sim(net,FinalIsolatedTest);
-[sensi, speci] = calcPerform(outSim, FinalTargetTest);
+[sensi, speci] = calcPerform(outSim, FinalTargetTest)
 

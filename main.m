@@ -1,5 +1,5 @@
-i = 2;
-load 54802;
+i = 1;
+load 44202;
 [T,BreakingPoints] = getTarget(Trg);
 T = T';
 BreakingPoints = BreakingPoints';
@@ -21,23 +21,25 @@ SubFeat = FinalIsolated(1:29, inicio:fim * 0.7);
 Test = FinalIsolated(1:29, fim * 0.7:fim);
 
 if i == 1
-    net = layrecnet();
+    net = layrecnet(1:2, 29);
+    net.trainFcn = 'trainscg';
+    net.trainParam.epochs = 1000;
     net.divideParam.trainRatio=1;
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
-    net.trainFcn = 'trainlm';
-    net = train(net,SubFeat,T);
+    net = train(net,SubFeat,T, 'useGPU', 'yes');
     outSim = sim(net,Test);
+    [sensi, speci] = calcPerform(outSim, TT);
 end
 if i == 2
-    net = feedforwardnet(29, 'trainlm');
-    net.trainFcn='trainlm';
-    net.trainParam.epochs = 100;
+    net = feedforwardnet(20);
+    net.trainFcn='trainscg';
+    net.trainParam.epochs = 1000;
     net.trainParam.goal = 0.00001;
     net.divideParam.trainRatio=1;
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
-    net = train(net,SubFeat,T);
+    net = train(net,SubFeat,T, 'useGPU', 'yes');
     outSim = sim(net,Test);
-    [sensi, speci] = calcPerform(outSim, TT);
+    [sensi, speci, PreicPerc, IctalPerc] = calcPerform(outSim, TT);
 end

@@ -51,7 +51,7 @@ else
     net.divideParam.testRatio=0;
     net.divideParam.valRatio=0;
     net.trainFcn = trainFunction;
-    net = train(net,FinalIsolatedTrain,FinalTargetTrain);
+    net = train(net,FinalIsolatedTrain,FinalTargetTrain,'useparallel','yes','useGPU','yes');
 end
 
 name = strcat('net',neuralNetwork);

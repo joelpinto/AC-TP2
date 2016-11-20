@@ -64,5 +64,5 @@ name = char(name);
 save(name,'net');
 
 outSim = sim(net,FinalIsolatedTest);
-[sensi, speci] = calcPerform(outSim, FinalTargetTest);
+[sensi, speci, PreicPerc, IctalPerc] = calcPerform(outSim, FinalTargetTest);
 

@@ -1,10 +1,10 @@
 
 
-dataset = '44202.mat';
-activation = 'purelin';
-neuralNetwork = 'feedfo';
-trainFunction ='trainlm';
-hiddenValue = 30;
+%dataset = '44202.mat';
+%activation = 'purelin';
+%neuralNetwork = 'feedfo';
+%trainFunction ='trainlm'; 
+%hiddenValue = 30;
 
 
 load(dataset);

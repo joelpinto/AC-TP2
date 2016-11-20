@@ -1,6 +1,12 @@
 
 
-dataset = '44202.mat'
+dataset = '44202.mat';
+activation = 'purelin';
+neuralNetwork = 'feedfo';
+trainFunction ='trainlm';
+hiddenValue = 30;
+
+
 load(dataset);
 
 [TTTarget,BreakingPoints] = getTarget(Trg);
@@ -12,6 +18,7 @@ FinalTarget =[];
 FinalIsolated =[];
 FeatVectSel = FeatVectSel';
 
+
 for iterator = 1:size(BreakingPoints)
     before = BreakingPoints(iterator)-1000;
     after = BreakingPoints(iterator)+ 1000;
@@ -19,8 +26,43 @@ for iterator = 1:size(BreakingPoints)
     FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
 end
 
-net = feedforwardnet(29);
-net.trainFcn = 'trainlm';
-net = train(net,FinalIsolated,FinalTarget,'useparallel','yes','useGPU','yes');
+inicio = 0;
+fim = size(FinalIsolated);
+fim = fim(1,2,1);
+FinalTargetTest = FinalTarget(1:4, fim * 0.7:fim);
+FinalTargetTrain = FinalTarget(1:4, inicio:fim * 0.7);
+FinalIsolatedTrain = FinalIsolated(1:29, inicio:fim * 0.7);
+FinalIsolatedTest = FinalIsolated(1:29, fim * 0.7:fim);
 
-save 'stats'
+
+if(strcmp(neuralNetwork,'feedfo'))
+    size(FinalTarget)
+    net = feedforwardnet(hiddenValue);
+    net.trainFcn = trainFunction;
+    net.divideParam.trainRatio=1;
+    net.divideParam.testRatio=0;
+    net.divideParam.valRatio=0;
+    net.layers{1}.transferFcn=activation;
+    net.layers{2}.transferFcn=activation;
+    net = train(net,FinalIsolatedTrain,FinalTargetTrain,'useparallel','yes','useGPU','yes');
+else
+    net = layrecnet();
+    net.divideParam.trainRatio=1;
+    net.divideParam.testRatio=0;
+    net.divideParam.valRatio=0;
+    net.trainFcn = 'trainlm';
+    net = train(net,FinalIsolatedTrain,FinalTargetTrain);
+end
+
+name = strcat('net',neuralNetwork);
+name = strcat(name,'_');
+name = strcat(name,trainFunction);
+name = strcat(name,'_');
+name = strcat(name,num2str(hiddenValue));
+name = strcat(name,'.mat');
+name = char(name);
+save(name,'net');
+
+outSim = sim(net,FinalIsolatedTest);
+[sensi, speci] = calcPerform(outSim, FinalTargetTest);
+

@@ -8,7 +8,7 @@ FinalTarget =[];
 FinalIsolated =[];
 for iterator = 1:size(BreakingPoints)
     before = BreakingPoints(iterator)-1000;
-    after = BreakingPoints(iterator)+ 1000;
+    after = BreakingPoints(iterator)+1000;
     FinalTarget = [FinalTarget,T(1:4, before:after)];
     FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
 end

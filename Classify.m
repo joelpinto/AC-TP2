@@ -1,12 +1,5 @@
 
 
-%     dataset = '44202.mat';
-%     activation = 'purelin';
-%     neuralNetwork = 'feedfo';
-%     trainFunction ='trainscg'; 
-%     hiddenValue = 30;
-
-
     if(strcmp(neuralNetwork,'feedfo_1'))
         load('netfeedfo_trainlm_20.mat');
     elseif(strcmp(neuralNetwork,'recnet_1'))

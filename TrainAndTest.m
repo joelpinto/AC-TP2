@@ -1,11 +1,5 @@
 
-
-%     dataset = '44202.mat';
-%     activation = 'purelin';
-%     neuralNetwork = 'feedfo';
-%     trainFunction ='trainscg'; 
-%     hiddenValue = 30;
-    gpuDevice(1);
+    %gpuDevice(1);
 
     load(dataset);
 

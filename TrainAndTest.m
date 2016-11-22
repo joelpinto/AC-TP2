@@ -91,4 +91,4 @@
 
     outSim = sim(net,FinalIsolatedTest);
     [sensi, speci, PreicPerc, IctalPerc, AC] = calcPerform(outSim, FinalTargetTest);
-
+    

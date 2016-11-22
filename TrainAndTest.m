@@ -1,7 +1,7 @@
 
     dataset = '44202.mat';
     activation = 'purelin';
-    neuralNetwork = 'elman';
+    neuralNetwork = 'ddn';
     trainFunction ='trainscg'; 
     hiddenValue = 20;
 
@@ -47,8 +47,8 @@
     
     
     A = FinalIsolatedTrain;
-    normA = A - min(A(:))
-    normA = normA ./ max(normA(:))
+    normA = A - min(A(:));
+    normA = normA ./ max(normA(:));
     
     FinalIsolatedTrain = normA;
     

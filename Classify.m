@@ -1,11 +1,15 @@
 
-
-    if(strcmp(neuralNetwork,'feedfo_1'))
-        load('netfeedfo_trainlm_20.mat');
-    elseif(strcmp(neuralNetwork,'recnet_1'))
-        load('netfeedfo_trainscg_20.mat');
-    end
     
+    if(option == 1)
+        if(strcmp(neuralNetwork,'feedfo_1'))
+            load('netfeedfo_trainlm_20.mat');
+        elseif(strcmp(neuralNetwork,'recnet_1'))
+            load('netfeedfo_trainscg_20.mat');
+        end
+    else
+         load(uigetfile('*.mat','Select the MATLAB NN file'));
+    end
+   
     
     %gpuDevice(1);
 

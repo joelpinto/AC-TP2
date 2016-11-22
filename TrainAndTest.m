@@ -1,16 +1,11 @@
 
 %     dataset = '44202.mat';
 %     activation = 'purelin';
-<<<<<<< HEAD
-%     neuralNetwork = 'ddn';
-%     trainFunction ='trainscg'; 
-%     hiddenValue = 20;
-=======
 %     neuralNetwork = 'elman';
 %     trainFunction ='traincgb'; 
 %     hiddenValue = 20;
 %     pre = 'B';
->>>>>>> 06753300b0cb654593ea27837fcc4e72d7d58624
+
 
     load(dataset);
 

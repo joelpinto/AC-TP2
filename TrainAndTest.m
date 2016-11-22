@@ -1,11 +1,10 @@
 
 
-%     dataset = '44202.mat';
-%     activation = 'purelin';
-%     neuralNetwork = 'feedfo';
-%     trainFunction ='trainscg'; 
-%     hiddenValue = 30;
-    gpuDevice(1);
+    dataset = '44202.mat';
+    activation = 'purelin';
+    neuralNetwork = 'elman';
+    trainFunction ='trainscg'; 
+    hiddenValue = 20;
 
     load(dataset);
 
@@ -34,10 +33,6 @@
     FinalTargetTrain = FinalTarget(1:4, inicio:fim * 0.7);
     FinalIsolatedTrain = FinalIsolated(1:29, inicio:fim * 0.7);
     FinalIsolatedTest = FinalIsolated(1:29, fim * 0.7:fim);
-    FinalIsolatedTrain = gpu2nndata(FinalIsolatedTrain);
-    FinalTargetTrain = gpu2nndata(FinalTargetTrain);
-    FinalIsolatedTrain = FinalIsolatedTrain';
-    FinalTargetTrain = FinalTargetTrain';
 
     if(strcmp(neuralNetwork,'feedfo'))
         size(FinalTarget);
@@ -49,13 +44,20 @@
         net.layers{1}.transferFcn=activation;
         net.layers{2}.transferFcn=activation;
         net = train(net,FinalIsolatedTrain,FinalTargetTrain);
-    else
+    elseif(strcmp(neuralNetwork,'recnet'))
         net = layrecnet(1:2,hiddenValue);
         net.divideParam.trainRatio=1;
         net.divideParam.testRatio=0;
         net.divideParam.valRatio=0;
         net.trainFcn = trainFunction;
-        net = train(net,FinalIsolatedTrain,FinalTargetTrain,'useGPU','yes');
+        net = train(net,FinalIsolatedTrain,FinalTargetTrain);
+    elseif(strcmp(neuralNetwork,'elman'))
+        net = elmannet(1:2, hiddenValue);
+        net.divideParam.trainRatio=1;
+        net.divideParam.testRatio=0;
+        net.divideParam.valRatio=0;
+        net.trainFcn = trainFunction;
+        net = train(net,FinalIsolatedTrain,FinalTargetTrain);
     end
 
     name = strcat('net',neuralNetwork);

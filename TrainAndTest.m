@@ -18,11 +18,22 @@
     FeatVectSel = FeatVectSel';
 
 
-    for iterator = 1:size(BreakingPoints)
-        before = BreakingPoints(iterator)-1000;
-        after = BreakingPoints(iterator)+ 1000;
-        FinalTarget = [FinalTarget,TTTarget(1:4, before:after)];
-        FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
+    if(strcmp(pre,'A'))
+        for iterator = 1:size(BreakingPoints)
+            before = BreakingPoints(iterator)-1000;
+            after = BreakingPoints(iterator)+ 1000;
+            FinalTarget = [FinalTarget,TTTarget(1:4, before:after)];
+            FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
+        end
+    elseif(strcmp(pre,'B'))
+        for iterator = 1:size(BreakingPoints)
+            before = BreakingPoints(iterator)- 730;
+            after = BreakingPoints(iterator)+ 430;
+            FinalTarget = [FinalTarget,TTTarget(1:4, before:after)];
+            FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
+        end  
+    elseif(strcmp(pre,'C'))
+        
     end
 
     inicio = 0;

@@ -28,11 +28,15 @@
     FinalTargetTrain = FinalTarget(1:4, inicio:fim * 0.7);
     FinalIsolatedTrain = FinalIsolated(1:29, inicio:fim * 0.7);
     FinalIsolatedTest = FinalIsolated(1:29, fim * 0.7:fim);
-    FinalIsolatedTrain = gpu2nndata(FinalIsolatedTrain);
-    FinalTargetTrain = gpu2nndata(FinalTargetTrain);
-    FinalIsolatedTrain = FinalIsolatedTrain';
-    FinalTargetTrain = FinalTargetTrain';
 
+    
+    
+    A = FinalIsolatedTrain;
+    normA = A - min(A(:))
+    normA = normA ./ max(normA(:))
+    
+    FinalIsolatedTrain = normA;
+    
     if(strcmp(neuralNetwork,'feedfo'))
         size(FinalTarget);
         net = feedforwardnet(hiddenValue);

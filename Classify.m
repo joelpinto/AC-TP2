@@ -28,6 +28,13 @@
         FinalTarget = [FinalTarget,TTTarget(1:4, before:after)];
         FinalIsolated = [FinalIsolated,FeatVectSel(1:29,before:after)];
     end
+    
+    A = FinalIsolatedTrain;
+    normA = A - min(A(:));
+    normA = normA ./ max(normA(:));
+    
+    FinalIsolatedTrain = normA;
+    
 
     outSim = sim(net,FinalIsolated);
     [sensi, speci, PreicPerc, IctalPerc] = calcPerform(outSim, FinalTarget);

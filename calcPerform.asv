@@ -1,4 +1,4 @@
-function [sensi, speci, PreicPerc, IctalPerc, AC] = calcPerform(outSim, Target)
+function [sensi, speci, PreicPerc, IctalPerc] = calcPerform(outSim, Target)
     i = 1;
     Trglength = size(Target);
     TP = 0; % true positives
@@ -10,15 +10,13 @@ function [sensi, speci, PreicPerc, IctalPerc, AC] = calcPerform(outSim, Target)
     TruePreic = 0;      % ture Preictal points found
     TotalTrueIctal = 0; % total true Ictal points
     TrueIctal = 0;      % true Ictal points found
-    AC = 0;
+    TrueAUX = 0;
     
     while i < Trglength(1,2,1)
         if outSim(1,i) > outSim(2,i) && outSim(1,i) > outSim(3,i) && outSim(1,i) > outSim(4,i) && Target(1,i) == 1
-            AC = AC + 1;
-        end
-        if outSim(4,i) > outSim(1,i) && outSim(4,i) > outSim(3,i) && outSim(4,i) > outSim(2,i) && Target(4,i) == 1
-            AC = AC + 1;
-        end
+            TP = TP + 1;
+        if outSim(2,i) > outSim(1,i) && outSim(2,i) > outSim(3,i) && outSim(2,i) > outSim(4,i) && Target(2,i) == 1
+            TP = TP + 1;
         if outSim(3,i) > outSim(1,i) && outSim(3,i) > outSim(2,i) && outSim(3,i) > outSim(4,i) && Target(3,i) == 1
             TP = TP + 1;
         elseif outSim(2,i) > outSim(1,i) && outSim(2,i) > outSim(3,i) && outSim(2,i) > outSim(4,i) && Target(2,i) == 1
@@ -51,9 +49,6 @@ function [sensi, speci, PreicPerc, IctalPerc, AC] = calcPerform(outSim, Target)
         end
         i = i + 1;
     end
-    AC = AC + TP;
-    AC = AC / Trglength(1,2,1);
-    AC = AC * 100;
     sensi = TP / (TP + FN);
     speci = TN / (TN + FP);
     PreicPerc = (TruePreic / TotalTruePreic) * 100;

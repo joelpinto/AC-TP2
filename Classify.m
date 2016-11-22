@@ -42,11 +42,11 @@
     elseif(strcmp(pre,'C'))
         
     end
-    A = FinalIsolatedTrain;
+    A = FinalIsolated;
     normA = A - min(A(:));
     normA = normA ./ max(normA(:));
     
-    FinalIsolatedTrain = normA;
+    FinalIsolated = normA;
     
 
     outSim = sim(net,FinalIsolated);
